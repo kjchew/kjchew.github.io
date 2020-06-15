@@ -1,5 +1,25 @@
 %%[
   VAR @msd_product_chkbx = RequestParameter("MSDProduct")
+  var @rr, @ID, @Name
+  set @rr = CreateObject("RetrieveRequest")
+  SetObjectProperty(@rr, "ObjectType", "DataFolder")
+  AddObjectArrayItem(@rr, "Properties", "ID")
+  AddObjectArrayItem(@rr, "Properties", "Name")
+
+  set @dataFolders = InvokeRetrieve(@rr, @rrStatus, @rrRequestID)
+
+  output(concat("rrStatus: ", @rrStatus))
+  output(concat("<br>rrRequestID: ", @rrRequestID))
+
+  for @i = 1 to RowCount(@dataFolders) do
+
+    set @dataFolder = Row(@dataFolders, @i)
+    set @ID = Field(@dataFolder, "ID")
+    set @Name = Field(@dataFolder, "Name")
+
+    output(concat("<br>ID: ", @ID, ", Name: ", @Name))
+
+  next @i
 ]%%
 <html>
   <head>
@@ -18,29 +38,5 @@
       </fieldset>
     </form>
     <a href="%%=CloudPagesURL(1906)=%%">click here to visit your landing page</a>
-%%[
-
-var @rr, @ID, @Name
-set @rr = CreateObject("RetrieveRequest")
-SetObjectProperty(@rr, "ObjectType", "DataFolder")
-AddObjectArrayItem(@rr, "Properties", "ID")
-AddObjectArrayItem(@rr, "Properties", "Name")
-
-set @dataFolders = InvokeRetrieve(@rr, @rrStatus, @rrRequestID)
-
-output(concat("rrStatus: ", @rrStatus))
-output(concat("<br>rrRequestID: ", @rrRequestID))
-
-for @i = 1 to RowCount(@dataFolders) do
-
-  set @dataFolder = Row(@dataFolders, @i)
-  set @ID = Field(@dataFolder, "ID")
-  set @Name = Field(@dataFolder, "Name")
-
-  output(concat("<br>ID: ", @ID, ", Name: ", @Name))
-
-next @i
-
-]%%
   </body>
 </html>
