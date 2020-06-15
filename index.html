@@ -1,13 +1,17 @@
-
+%%[
+  VAR @msd_product_chkbx = RequestParameter("MSDProduct")
+]%%
 <html>
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <form method="post">
+    <form method="post" action="%%=CloudPagesURL(1906)=%%">
       <fieldset>
         <legend>Subscription Center</legend>
+        <label for="Email">Email Address: </label>
+        <input type="email" id="Email"/>
         <label for="MSDProduct">MSD Product Consent</label>
         <input type="checkbox" id="MSDProduct" autocomplete="off"/>
         <button id="submit">Send</button>
