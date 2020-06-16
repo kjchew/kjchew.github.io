@@ -1,5 +1,13 @@
+%%[
+    set @email = RequestParameter("email")
+    set @msdconsent = RequestParameter("MSDProduct")
+    set @subkey = RequestParameter("subkey")
+
+]%%
 <html>
 <body>
-Hello, world
+%%= v(@email) =%%
+%%= v(@msdconsent) =%%
+%%= v(@subkey) =%%
 </body>
 </html>
