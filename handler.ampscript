@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+%%[
+    //Request Parameters
+    //set @email = RequestParameter("Email")
+    //set @msdconsent = RequestParameter("MSDProduct")
+    //set @subkey = RequestParameter("Subkey")
+
+    set @email = "ckar_joon@hotmail.com"
+    set @msdconsent = RequestParameter("MSDProduct")
+    set @subkey = "cbb415cc-ebfe-4aba-b6fd-65a738d9f323"
+/*    
+    var @sub_status    
+    if Empty(@msdconsent) then
+      set @sub_status = "Unsubscribe"
+    else
+      set @sub_status = "Active"
+    endif
+    OutputLine(Concat("sub status: ", @sub_status))
+*/    
+
+/*
+    //var @err, @clientID
+    //set @MID = "7323638"
+    //set @err = 0
+*/
+    //set @clientID = CreateObject("ClientID")
+    //SetObjectProperty(@clientID, "ID", @MID)
+   
+    //define the subsriber
+    var @subscriber
+    set @subscriber = CreateObject("Subscriber")
+    SetObjectProperty(@subscriber, "EmailAddress", @email)
+    SetObjectProperty(@subscriber, "SubscriberKey", @subkey)
+
+    set @updateOptions = CreateObject("UpdateOptions")
+    set @saveOptions = CreateObject("SaveOption")
+    SetObjectProperty(@saveOptions,"SaveAction","UpdateAdd")
+    SetObjectProperty(@saveOptions,"PropertyName","*")
+    AddObjectArrayItem(@updateOptions,"SaveOptions", @saveOptions)
+        
+    // get the publication list
+    set @List = CreateObject("SubscriberList")
+    SetObjectProperty(@List, "ID", "4552")
+    SetObjectProperty(@List, "Status", "Unsubscribe")
+
+    // Associate the publication list to the contact
+    AddObjectArrayItem( @subscriber, "Lists", @List )
+    // Update the contact
+    var @updateStatusCode, @updateStatusMessage, @updateErrorCode
+    set @updateStatusCode = InvokeUpdate(@subscriber, @updateStatusMessage, @updateErrorCode, @updateOptions)
+
+    OutputLine(Concat("updateStatus Code: ", @updateStatusCode, ", mesg: ", @updateStatusMessage, ", error: ", @updateErrorCode))
+
+]%%
+<html>
+    <body>
+        <p>Email: %%=v(@email)=%% </p>
+        <p>consent: %%=v(@msdconsent)=%%</p>
+        <p>Sub Key: %%=v(@subkey)=%%</p>
+    </body>
+</html>
