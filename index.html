@@ -6,10 +6,20 @@
   <body>
     <form method="post" action="%%=CloudPagesURL(1906)=%%">
         <legend>Subscription Center</legend>
-        <label for="Email">Email Address: </label>
-        <input type="email" id="Email"/>
-        <label for="MSDProduct">MSD Product Consent</label>
-        <input type="checkbox" id="MSDProduct" autocomplete="off"/>
+        <fieldset>
+          <div class="input-group vertical">
+            <label for="Email">Email Address: </label>
+            <input type="email" id="Email"/>
+          </div>
+          <div class="input-group vertical">
+            <label for="Email">Subscriber Key: </label>
+            <input type="text" id="subkey"/>
+          </div>
+          <div class="input-group vertical">
+            <label for="MSDProduct">MSD Product Consent</label>
+            <input type="checkbox" id="MSDProduct" autocomplete="off"/>
+          </div>
+        </fieldset>
         <button id="submit">Send</button>
     </form>
     <a href="%%=CloudPagesURL(1906)=%%">click here to visit your landing page</a>
