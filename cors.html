@@ -15,7 +15,6 @@ console.log(`Ready state: ${xhr.readyState}`)
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4)
     if (xhr.status != 200) { // analyze HTTP status of the response
-      console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
       document.getElementById('lic_id').textContent = `Error ${xhr.status}: ${xhr.statusText}`;
     } else { // show the result
       document.getElementById('lic_id').textContent = xhr.responseText;
@@ -32,7 +31,7 @@ xhr.onprogress = function(event) {
 };
 
 xhr.onerror = function() {
-  alert("Request failed");
+   document.getElementById('lic_id').textContent = `Error ${xhr.status}: ${xhr.statusText}`;
 };
 
 // 2. Configure it: GET-request for the URL /article/.../load
