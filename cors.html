@@ -1,0 +1,46 @@
+<html>
+<head>
+
+</head>
+<body>
+<div id="lic_id">
+</div>
+</body>
+<script type="text/javascript">
+// 1. Create a new XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+console.log(`Ready state: ${xhr.readyState`)
+
+// 4. This will be called after the response is received
+xhr.onreadystatechange = function() {
+  if (xhr.readyState == 4)
+    if (xhr.status != 200) { // analyze HTTP status of the response
+      console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+    } else { // show the result
+      console.log(`Done, got ${xhr.responseText} and  ${xhr.response.length} bytes`); // response is the server
+    }
+};
+
+xhr.onprogress = function(event) {
+  if (event.lengthComputable) {
+    alert(`Received ${event.loaded} of ${event.total} bytes`);
+  } else {
+    alert(`Received ${event.loaded} bytes`); // no Content-Length
+  }
+
+};
+
+xhr.onerror = function() {
+  alert("Request failed");
+};
+
+// 2. Configure it: GET-request for the URL /article/.../load
+let url = new URL("https://5a81dnqtyb.execute-api.ap-southeast-1.amazonaws.com/default/license/KR/89761");
+xhr.open('GET', url);
+
+// 3. Send the request over the network
+xhr.send();
+
+
+</script>
+</html>
