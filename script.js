@@ -10,7 +10,7 @@ const app = Vue.createApp({
         };
     },
     methods: {
-        edit(index) {
+        edit: function (index) {
             this.editInput = this.campaigns[index];
             console.log(this.editInput);
             this.campaigns.splice(index, 1);
