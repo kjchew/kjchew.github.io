@@ -8,7 +8,14 @@ const app = Vue.createApp({
             ],
             message: 'Hello World from Joon222'
         };
-    }
+    },
+    methods: {
+        edit(index) {
+            this.editInput = this.campaigns[index];
+            console.log(this.editInput);
+            this.campaigns.splice(index, 1);
+        },
+    },
 });
 
 app.mount('#app');

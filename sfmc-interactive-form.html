@@ -23,6 +23,14 @@
                 <td>{{index}}</td>
                 <td>{{campaign.emailName}}</td>
                 <td>{{campaign.campaignTag}}</td>
+                <td style="width: 18%;">
+                    <a href="#modal" @click="edit(index)" class="btn-small waves-effect waves-light darken-2">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <a href="#!" class="btn-small waves-effect waves-light darken-2" @click="archive(index)">
+                        <i class="material-icons">archive</i>
+                    </a>
+                  </td>
             </tr>
         </tbody>
     </table>
