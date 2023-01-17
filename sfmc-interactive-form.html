@@ -12,9 +12,7 @@
       {{message}}
     </div>
   </div>
-<!--  
-  <script src="{{ YOUR JS PATH }}/app.js"></script>
-//-->
+  
   <script type="importmap">
     {
       "imports": {
@@ -22,17 +20,11 @@
       }
     }
   </script>  
-  
   <script type="module">
-  import { createApp } from 'vue'
+    import { createApp } from 'vue'
+    import MyComponent from './script.js'
 
-  createApp({
-    data() {
-      return {
-        message: 'Hello World from Joon!'
-      }
-    }
-  }).mount('#app')
+    createApp(MyComponent).mount('#app')
   </script>
   
 </body>
