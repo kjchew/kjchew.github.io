@@ -32,17 +32,33 @@
                     </a>
                   </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                  <div class="input-field">
+                      <input placeholder="Placeholder" ref="emailName" v-model="metadataAddInput.emailName" id="emailName" type="text">
+                      <label for="emailName">Email Name</label>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input placeholder="Placeholder" v-model="metadataAddInput.campaignTag" id="campaignTag" type="text">
+                    <label for="campaignTag">Campaign Tag</label>
+                  </div>
+                </td>
+                <td><a href="#!" @click="add" class="btn-small btn-waves green darken-2"><i class="material-icons">add</i></a></td>
+              </tr>
         </tbody>
     </table>
-    <div class="mx-auto my-4">
-      {{message}}
-    </div>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
     integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://unpkg.com/vue@next" defer></script>
+<!--
   <script src="https://kjchew.github.io/script.js" defer></script>
+ -->
+  <script src="./script.js" defer></script>
 
 </body>
 </html>
