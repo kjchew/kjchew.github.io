@@ -22,9 +22,6 @@ export default {
         edit(index) {
             console.log(`edit called, index: ${index}`)
             this.$emit('edit-metadata', index);
-            // this.metadataEditInput = this.campaign;
-            // this.currentEditIdx = index;
-            // console.log(`edit modal panel for ${this.currentEditIdx}: ${JSON.stringify(this.metadataEditInput)}`);
         },
 
     },
