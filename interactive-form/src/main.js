@@ -8,7 +8,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import "material-design-icons/iconfont/material-icons.css";
 import "./assets/main.css";
 
-const app = createApp(App)
+const app = createApp(App);
 app.component("metadata-list", MetadataList);
 app.component("metadata-line-record", MetadataLineRecord);
 app.component("metadata-add-new", MetadataAddNew);

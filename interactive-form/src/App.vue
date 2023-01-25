@@ -1,45 +1,77 @@
 <script>
 import M from "materialize-css";
+import axios from "axios";
+
+const cloudpageUrl = "https://cloud.info.msdconnect.tw/metadata_de";
 
 export default {
   provide() {
     return {
       addNewMetadata: this.addMetadata,
       updateMetadata: this.updateMetadata,
+      removeMetadata: this.removeMetadata,
     };
   },
   methods: {
     addMetadata(emailName, campaignTag) {
-      this.campaigns.push({
-        id: this.campaigns.length + 1,
-        emailName,
-        campaignTag
-      });
-      this.campaigns.sort((a, b) => (a.campaignTag > b.campaignTag ? 1 : -1));
-      console.log(`add called: campaigns: ${JSON.stringify(this.campaigns)}`);
+      const payload = {
+        id: `${this.campaigns.length + 1}`,
+        emailName: emailName,
+        campaignTag: campaignTag
+      };
+      axios.post(`${cloudpageUrl}?deName=poc_kj_metadata`, payload)
+           .then(response => {
+              this.campaigns.push(payload);
+              this.campaigns.sort(sortCampaigns);
+              console.log(`add called: campaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
+           });
     },
     updateMetadata(index, emailName, campaignTag) {
-        console.log(`updateMetadata called: ${index}, ${emailName}, ${campaignTag}`);
-        this.campaigns[index] = {emailName, campaignTag};
-        // campaign = this.campaigns.find((campaign) => (campaign.id === id));
-        // campaign = {id, emailName, campaignTag};
+      const payload = {
+        id: `${this.campaigns[index].id}`,
+        emailName: emailName,
+        campaignTag: campaignTag
+      };
+      axios.put(`${cloudpageUrl}?deName=poc_kj_metadata`, payload)
+           .then(response => {
+              this.campaigns[index] = { emailName, campaignTag };
+              this.campaigns.sort(sortCampaigns);
+              console.log(`update called: campaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
+           });
+    },
+    removeMetadata(index) {
+      const id = this.campaigns[index].id;
+      axios.delete(`${cloudpageUrl}?deName=poc_kj_metadata&id=${id}`)
+           .then(response => {
+              this.campaigns.splice(index, 1);
+           });
     }
   },
   data() {
     return {
-        columns: ['Index', 'Email Name', 'Campagin Tag'],
-        campaigns: [
-            { id: '1', emailName: 'TW_Line_01', campaignTag: 'Line01' },
-            { id: '2', emailName: 'TW_Line_02', campaignTag: 'Line01' }
-        ],
-        metadataBin: [],
-        currentEditIdx: -1,
+      columns: ["Index", "Email Name", "Campagin Tag"],
+      campaigns: [
+      ],
+      metadataBin: [],
+      currentEditIdx: -1,
     };
   },
   mounted() {
     M.AutoInit();
+    axios
+      .get(`${cloudpageUrl}?deName=poc_kj_metadata`)
+      .then((response) => {
+        this.campaigns = response.data;
+        this.campaigns.sort(sortCampaigns);
+      });
   },
 };
+
+function sortCampaigns(campA, campB) {
+  if (campA.campaignTag === campB.campaignTag) return (campA.emailName > campB.emailName) ? 1 : -1;
+  return campA.campaignTag > campB.campaignTag ? 1 : -1;
+}
+
 </script>
 
 <template>
@@ -53,6 +85,4 @@ export default {
   </header>
 </template>
 
-<style>
-
-</style>
+<style></style>
