@@ -14,7 +14,6 @@
         :index="index"
         :campaign="campaign"
         :key="campaign.id"
-        :recoverIdx="recoverIdx"
         @edit-metadata="editMetadata"
       />
     </tbody>
@@ -92,7 +91,6 @@ export default {
       },
       metadataBin: [],
       currentEditIdx: -1,
-      recoverIdx: -1,
     };
   },
   methods: {

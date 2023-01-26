@@ -9,7 +9,13 @@
   </header>
 </template>
 
-<style></style>
+<style scoped>
+.header {
+  color: #ee6e73;
+  font-weight: 300;
+}
+
+</style>
 
 <script>
 import M from "materialize-css";
@@ -27,6 +33,7 @@ export default {
       addNewMetadata: this.addMetadata,
       updateMetadata: this.updateMetadata,
       removeMetadata: this.removeMetadata,
+      recoverMetadata: this.recoverMetadata,
     };
   },
   methods: {
@@ -71,16 +78,17 @@ export default {
         .delete(`${cloudpageUrl}?deName=poc_kj_metadata&id=${id}`)
         // eslint-disable-next-line no-unused-vars
         .then((_) => {
-          this.campaigns.splice(index, 1);
+            this.campaigns.splice(index, 1);
         });
+    },
+    recoverMetadata(campaign) {
+      this.addMetadata(campaign.emailName, campaign.campaignTag);
     },
   },
   data() {
     return {
       columns: ["Index", "Email Name", "Campagin Tag"],
       campaigns: [],
-      metadataBin: [],
-      currentEditIdx: -1,
     };
   },
   mounted() {
