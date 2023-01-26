@@ -1,64 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="https://www.google.com/recaptcha/api.js?dl=en"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+        integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         integrity="sha512-UJfAaOlIRtdR+0P6C3KUoTDAxVTuy3lnSXLyLKlHYJlcSU8Juge/mjeaxDNMlw9LgeIotgz5FP8eUQPhX1q10A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-  <div id="app" class="container">
-    <h4 class="head"> Manage Campaign Tracking</h4>
-    <table class="table-responsive bordered highlight centered hoverable z-depth-2" v-show="campaigns.length">
-        <thead>
-            <tr>
-                <th v-for="column in columns">{{column}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(campaign, index) in campaigns">
-                <td>{{index}}</td>
-                <td>{{campaign.emailName}}</td>
-                <td>{{campaign.campaignTag}}</td>
-                <td style="width: 18%;">
-                    <a href="#modal" @click="edit(index)" class="btn-small waves-effect waves-light darken-2">
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a href="#!" class="btn-small waves-effect waves-light darken-2" @click="archive(index)">
-                        <i class="material-icons">archive</i>
-                    </a>
-                  </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                  <div class="input-field">
-                      <input placeholder="Placeholder" ref="emailName" v-model="metadataAddInput.emailName" id="emailName" type="text">
-                      <label for="emailName">Email Name</label>
-                  </div>
-                </td>
-                <td>
-                  <div class="input-field">
-                    <input placeholder="Placeholder" v-model="metadataAddInput.campaignTag" id="campaignTag" type="text">
-                    <label for="campaignTag">Campaign Tag</label>
-                  </div>
-                </td>
-                <td><a href="#!" @click="add" class="btn-small btn-waves green darken-2"><i class="material-icons">add</i></a></td>
-              </tr>
-        </tbody>
-    </table>
 
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-    integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://unpkg.com/vue@next" defer></script>
-<!--
+<body>
+    <div id="app" class="container">
+        <h4 class="head"> Manage Campaign Tracking</h4>
+        <table class="table-responsive bordered highlight centered hoverable z-depth-2" v-show="campaigns.length">
+            <thead>
+                <tr>
+                    <th v-for="column in columns">{{column}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(campaign, index) in campaigns" :key="campaign.id">
+                    <td>{{index}}</td>
+                    <td>{{campaign.emailName}}</td>
+                    <td>{{campaign.campaignTag}}</td>
+                    <td style="width: 18%;">
+                        <a href="#editMetadataModal" @click="edit(index)"
+                            class="btn-small waves-effect waves-light darken-2 modal-trigger">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <a href="#!" class="btn-small waves-effect waves-light darken-2" @click="remove(index)">
+                            <i class="material-icons">archive</i>
+                        </a>
+                        <span v-if="recoverIdx === index">Record has been deleted<button class="btn-flat toast-action" @click="recoverItem(index)">Undo</button></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="input-field">
+                            <input placeholder="Placeholder" ref="emailName" v-model="metadataAddInput.emailName"
+                                id="emailName" type="text">
+                            <label for="emailName">Email Name</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-field">
+                            <input placeholder="Placeholder" v-model="metadataAddInput.campaignTag" id="campaignTag"
+                                type="text">
+                            <label for="campaignTag">Campaign Tag</label>
+                        </div>
+                    </td>
+                    <td><a href="#!" @click="add" class="btn-small btn-waves green darken-2"><i
+                                class="material-icons">add</i></a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Edit Modal -->
+        <div id="editMetadataModal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4 class="center-align">Edit</h4>
+                <p class="center-align">Edition form. Update informations</p>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Email Name" id="emailName" type="text" v-model="metadataEditInput.emailName">
+                                <label for="emailName">Email Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="Campaign Tag" id="campaignTag" type="text" v-model="metadataEditInput.campaignTag">
+                                <label for="campaignTag">Campaign Tag</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a href="#!" @click="update" class="btn waves-effect waves-light modal-action modal-close"><i class="material-icons">edit</i></a>
+            </div>
+        </div>
+        <!-- end of Modal div -->
+    </div>
+    <!-- end of container div //-->
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+    </script>
+    <!--
   <script src="https://kjchew.github.io/script.js" defer></script>
  -->
-  <script src="./script.js" defer></script>
+    <script src="./script.js" defer></script>
 
 </body>
+
 </html>
