@@ -1,6 +1,7 @@
 <template>
   <table
-    class="table-responsive bordered highlight centered hoverable z-depth-2">
+    class="table-responsive bordered highlight centered hoverable z-depth-2"
+  >
     <thead>
       <metadata-add-new />
       <tr v-show="campaigns.length">
@@ -63,7 +64,14 @@
 </template>
 
 <script>
+import MetadataLineRecord from "./MetadataLineRecord.vue";
+import MetadataAddNew from "./MetadataAddNew.vue";
+
 export default {
+  components: {
+    MetadataLineRecord,
+    MetadataAddNew,
+  },
   inject: ["updateMetadata"],
   props: {
     columns: {

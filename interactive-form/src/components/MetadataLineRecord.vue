@@ -55,10 +55,9 @@ export default {
       this.$emit("edit-metadata", index);
     },
     remove(index) {
-        console.log(`edit called, index: ${index}`);
-        this.removeMetadata(index);
-
-    }
+      console.log(`edit called, index: ${index}`);
+      this.removeMetadata(index);
+    },
   },
 };
 </script>
