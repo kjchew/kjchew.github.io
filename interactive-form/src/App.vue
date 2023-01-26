@@ -15,15 +15,14 @@ export default {
   methods: {
     addMetadata(emailName, campaignTag) {
       const payload = {
-        id: `${this.campaigns.length + 1}`,
         emailName: emailName,
         campaignTag: campaignTag
       };
       axios.post(`${cloudpageUrl}?deName=poc_kj_metadata`, payload)
            .then(response => {
-              this.campaigns.push(payload);
+              this.campaigns.push(response.data.record);
               this.campaigns.sort(sortCampaigns);
-              console.log(`add called: campaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
+              console.log(`add called: \ncampaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
            });
     },
     updateMetadata(index, emailName, campaignTag) {
@@ -34,9 +33,9 @@ export default {
       };
       axios.put(`${cloudpageUrl}?deName=poc_kj_metadata`, payload)
            .then(response => {
-              this.campaigns[index] = { emailName, campaignTag };
+              this.campaigns[index] = response.data.record;
               this.campaigns.sort(sortCampaigns);
-              console.log(`update called: campaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
+              console.log(`update called: \ncampaigns: ${JSON.stringify(this.campaigns)}\nresponse: ${JSON.stringify(response.data)}`);
            });
     },
     removeMetadata(index) {

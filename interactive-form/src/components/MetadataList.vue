@@ -1,10 +1,9 @@
 <template>
   <table
-    class="table-responsive bordered highlight centered hoverable z-depth-2"
-    v-show="campaigns.length"
-  >
+    class="table-responsive bordered highlight centered hoverable z-depth-2">
     <thead>
-      <tr>
+      <metadata-add-new />
+      <tr v-show="campaigns.length">
         <th v-for="column in columns" :key="column">{{ column }}</th>
       </tr>
     </thead>
@@ -17,12 +16,10 @@
         :recoverIdx="recoverIdx"
         @edit-metadata="editMetadata"
       />
-      <metadata-add-new />
     </tbody>
   </table>
 
   <!-- Edit Modal -->
-
   <div id="editMetadataModal" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4 class="center-align">Edit</h4>
