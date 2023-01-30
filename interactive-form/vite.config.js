@@ -10,6 +10,7 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     assetsInlineLimit: 100000000,
+    assetsDir: "./",
     output: {
       rollupOptions: {
         inlineDynamicImports: true,

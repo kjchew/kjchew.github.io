@@ -14,11 +14,9 @@
   color: #ee6e73;
   font-weight: 300;
 }
-
 </style>
 
 <script>
-import M from "materialize-css";
 import axios from "axios";
 import MetadataList from "./components/MetadataList.vue";
 
@@ -78,7 +76,7 @@ export default {
         .delete(`${cloudpageUrl}?deName=poc_kj_metadata&id=${id}`)
         // eslint-disable-next-line no-unused-vars
         .then((_) => {
-            this.campaigns.splice(index, 1);
+          this.campaigns.splice(index, 1);
         });
     },
     recoverMetadata(campaign) {
@@ -92,7 +90,6 @@ export default {
     };
   },
   mounted() {
-    M.AutoInit();
     axios.get(`${cloudpageUrl}?deName=poc_kj_metadata`).then((response) => {
       this.campaigns = response.data;
       this.campaigns.sort(sortCampaigns);

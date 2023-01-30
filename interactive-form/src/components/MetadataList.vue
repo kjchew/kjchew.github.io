@@ -1,9 +1,9 @@
 <template>
+  <metadata-add-new />
   <table
     class="table-responsive bordered highlight centered hoverable z-depth-2"
   >
     <thead>
-      <metadata-add-new />
       <tr v-show="campaigns.length">
         <th v-for="column in columns" :key="column">{{ column }}</th>
       </tr>
