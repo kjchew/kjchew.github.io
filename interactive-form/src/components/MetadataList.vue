@@ -95,8 +95,6 @@ export default {
   },
   methods: {
     editMetadata(index) {
-      //   this.metadataEditInput = this.campaigns[index];
-
       this.metadataEditInput = {
         index,
         emailName: this.campaigns[index].emailName,

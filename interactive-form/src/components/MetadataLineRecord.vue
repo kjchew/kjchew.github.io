@@ -128,7 +128,6 @@ export default {
     recoverItem() {
       console.log(`recoverItem called, emailName: ${this.archivedCampaign.emailName}, ${this.archivedCampaign.campaignTag}`);
       this.undo = true;
-    //   this.recoverMetadata(this.archivedCampaign);
       this.show_toast = false;
     },
   },
