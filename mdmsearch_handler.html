@@ -60,27 +60,31 @@
             RightOperand: email_flt
         };
 
-        if (fName && lName && email) {
-            return {
-                LeftOperand: flName_flt,
-                LogicalOperator: "AND",
-                RightOperand: email_flt
-            }
-        } else if (fName && lName){
-            return flName_flt;
-        } else if (fName && email) {
-            return fe_flt;
-        } else if (lName && email) {
-            return le_flt;
-        } else if (fName) {
+        if (!fname, !lName, !email) {
             return fname_flt;
-        } else if (lname) {
-            return lname_flt;
-        } else if (email) {
-            return email_flt;
-        } else {
-            return fname_flt;
-        };
+        }
+        // if (fName && lName && email) {
+        //     return {
+        //         LeftOperand: flName_flt,
+        //         LogicalOperator: "AND",
+        //         RightOperand: email_flt
+        //     }
+        // } else if (fName && lName){
+        //     return flName_flt;
+        // } else if (fName && email) {
+        //     return fe_flt;
+        // } else if (lName && email) {
+        //     return le_flt;
+        // } else if (fName) {
+        //     return fname_flt;
+        // } else if (lname) {
+        //     return lname_flt;
+        // } else if (email) {
+        //     return email_flt;
+        // } else {
+        //     return fname_flt;
+        // };
+
         // var cmp_flt = {
             //   LeftOperand: {
                 // LeftOperand: ,
