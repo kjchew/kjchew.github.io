@@ -17,7 +17,7 @@
             + '&email=' + this.email);
             let msg = await resp.json();
             console.log('msg: ' + JSON.stringify(msg));
-            return msg;
+            return JSON.stringify(msg);
         }catch (error) {
             console.log('error: ' + error);
         }

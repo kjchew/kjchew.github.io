@@ -1,0 +1,50 @@
+<script runat='server'>
+
+    Platform.Load('core', '1');
+    HTTPHeader.SetValue("Access-Control-Allow-Methods","*");
+    HTTPHeader.SetValue("Access-Control-Allow-Origin","*");
+    //var prox = new Script.Util.WSProxy();
+    var firstname = Platform.Request.GetQueryStringParameter('firstname');
+    var lastname = Platform.Request.GetQueryStringParameter('lastname');
+    var email = Platform.Request.GetQueryStringParameter('email');
+    var crmDECustKey = "PROD_HK_CIM_to_SFMC_CRM_Profiles";
+    var crmDE = DataExtension.Init(crmDECustKey);
+    var crmDECols = ["mdmid",
+                     "FIRST_NAME",
+                     "LAST_NAME",
+                     "MEDICAL_LICENSE_NUMBER",
+                     "EMAIL"
+                    ];
+
+    var cmp_flt = {
+      LeftOperand: {
+        LeftOperand: {
+          Property: "FIRST_NAME",
+          SimpleOperator: "like",
+          Value: firstname
+        },
+        LogicalOperator: "OR",
+        RightOperand: {
+          Property: "LAST_NAME",
+          SimpleOperator: "like",
+          Value: lastname
+        }
+      },
+      LogicalOperator: "AND",
+      RightOperand: {
+        Property: "EMAIL",
+        SimpleOperator: "equals",
+        Value: email
+      }
+    };
+
+//    var resp = prox.retrieve("DataExtensionObject[" + crmDECustKey + "]",
+//                             crmDECols,
+//                             cmp_flt);
+    var resp = crmDE.Rows.Retrieve(cmp_flt);
+    Write(Stringify({
+      status: 200,
+      result: resp
+    }));
+
+</script>
