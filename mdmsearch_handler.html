@@ -29,40 +29,40 @@
     }));
 
     function constructFilter(fName, lName, email) {
-        let fname_flt = {
+        var fname_flt = {
             Property: "FIRST_NAME",
             SimpleOperator: "equals",
             Value: firstname
         };
-        let lname_flt = {
+        var lname_flt = {
             Property: "LAST_NAME",
             SimpleOperator: "equals",
             Value: lastname
         };
-        let email_flt = {
+        var email_flt = {
             Property: "EMAIL",
             SimpleOperator: "equals",
             Value: email
         };
-        let flName_flt = {
+        var flName_flt = {
             LeftOperand: fname_flt,
             LogicalOperator: "AND",
             RightOperand: lname_flt
         };
-        let fe_flt = {
+        var fe_flt = {
             LeftOperand: fname_flt,
             LogicalOperator: "AND",
             RightOperand: email_flt
         };
-        let le_flt = {
+        var le_flt = {
             LeftOperand: lname_flt,
             LogicalOperator: "AND",
             RightOperand: email_flt
         };
 
-        if (!fname && !lName && !email) {
+        // if (!fname && !lName && !email) {
             return fname_flt;
-        }
+        // }
         // if (fName && lName && email) {
         //     return {
         //         LeftOperand: flName_flt,
