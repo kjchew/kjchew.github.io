@@ -21,9 +21,9 @@
 //    var resp = prox.retrieve("DataExtensionObject[" + crmDECustKey + "]",
 //                             crmDECols,
 //                             cmp_flt);
-//    var resp = crmDE.Rows.Retrieve(cmp_flt);
+    var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      change: a1,
+      change: "a2",
       filter: cmp_flt,
       status: 200,
       result: resp
