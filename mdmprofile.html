@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+  <script>
+    async function extractProfile(){
+        console.log('fname: ' + this.firstname + ' ' + this.lastname + ' ' + this.email);
+        try {
+            let resp = await fetch('https://cloud.info.msdconnect.hk/poc_mdm_validation?'
+            + 'firstname='+ this.firstname
+            + '&lastname=' + this.lastname
+            + '&email=' + this.email);
+            let msg = resp.json());
+            console.log('msg: ' + msg);
+            return msg;
+        }catch (error) {
+            console.log('error: ' + error);
+        }
+    }
+  </script>
+  <img data-assetid="280916" src="https://image.info.msdconnect.hk/lib/fe9a13737665057b75/m/1/search_yello.png" alt="" width="1200" style="display: block; padding: 0px; text-align: center; height: auto; width: 100%; border: 0px;">
+  <h1>MDM Profile Search</h1>
+  <div
+     x-data="{
+      firstname:'',
+      lastname:'',
+      email:'',
+      message:''
+     }"
+  >
+    <input
+           minlength="2"
+           id="firstname"
+           type="text"
+           x-model="firstname"
+           placeholder="Enter first name"
+           >
+
+    <input
+           minlength="2"
+           id="lastname"
+           type="text"
+           x-model="lastname"
+           placeholder="Enter last name"
+           >
+
+    <input
+           pattern="^\S+@\S+\.\S+$"
+           id="email"
+           type="email"
+           x-model="email"
+           placeholder="Enter email address"
+           >
+    <hr>
+    <br>
+    <button type="submit">Subscribe me</button>
+    <p class="notice" x-text="extractProfile"></p>
+    <div id="result">
+    </div>
+  </div>
+
+</body>
+</html>
