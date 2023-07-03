@@ -13,6 +13,7 @@ const app = Vue.createApp({
                 campaignTag: ''
             },
             metadataEditInput: {
+                id: '',
                 emailName: '',
                 campaignTag: ''
             },
