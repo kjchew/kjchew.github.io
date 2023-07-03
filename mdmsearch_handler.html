@@ -23,7 +23,7 @@
 //                             cmp_flt);
     var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      change: "a6",
+      change: "a7",
       filter: cmp_flt,
       status: 200,
       result: resp
@@ -79,11 +79,13 @@
         else if (lName && email) {
             return le_flt;
         }
-        //else if (fName) {
-        //     return fname_flt;
-        // } else if (lname) {
-        //     return lname_flt;
-        // } else if (email) {
+        else if (fName) {
+             return fname_flt;
+        }
+        else if (lname) {
+             return lname_flt;
+        }
+        //else if (email) {
         //     return email_flt;
         // } else {
         //     return fname_flt;
