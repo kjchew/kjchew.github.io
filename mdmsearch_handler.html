@@ -16,21 +16,16 @@
                      "EMAIL"
                     ];
     var op = "equals"
+    var cmp_flt = constructFilter(firstname, lastname, email);
     // var cmp_flt = {
-    //     Property: "FIRST_NAME",
-    //     SimpleOperator: op,
-    //     Value: firstname
-    // };
-
-    var cmp_flt = {
     //   LeftOperand: {
-        LeftOperand: {
-          Property: "FIRST_NAME",
-          SimpleOperator: "equals",
-          Value: firstname
-        },
-        LogicalOperator: "OR",
-        RightOperand: {
+        // LeftOperand: {
+        //   Property: "FIRST_NAME",
+        //   SimpleOperator: "equals",
+        //   Value: firstname
+        // },
+        // LogicalOperator: "OR",
+        // RightOperand: {
     //       Property: "LAST_NAME",
     //       SimpleOperator: "equals",
     //       Value: lastname
@@ -38,20 +33,91 @@
     //   },
     //   LogicalOperator: "AND",
     //   RightOperand: {
-        Property: "EMAIL",
-        SimpleOperator: "equals",
-        Value: email
-      }
-    };
+    //     Property: "EMAIL",
+    //     SimpleOperator: "equals",
+    //     Value: email
+    //   }
+    // };
 
 //    var resp = prox.retrieve("DataExtensionObject[" + crmDECustKey + "]",
 //                             crmDECols,
 //                             cmp_flt);
     var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      operator: op,
+      filter: cmp_flt,
       status: 200,
       result: resp
     }));
 
+    function constructFilter(fName, lName, email) {
+        var cmp_flt = {};
+        let fname_flt = {
+            Property: "FIRST_NAME",
+            SimpleOperator: "equals",
+            Value: firstname
+        };
+        let lname_flt = {
+            Property: "LAST_NAME",
+            SimpleOperator: "equals",
+            Value: lastname
+        };
+        let email_flt = {
+            Property: "EMAIL",
+            SimpleOperator: "equals",
+            Value: email
+        };
+        let flName_flt = {
+            LeftOperand: fname_flt,
+            LogicalOperator: "AND",
+            RightOperand: lname_flt
+        };
+        let fe_flt = {
+            LeftOperand: fname_flt,
+            LogicalOperator: "AND",
+            RightOperand: email_flt
+        };
+        let le_flt = {
+            LeftOperand: lname_flt,
+            LogicalOperator: "AND",
+            RightOperand: email_flt
+        };
+
+        if (fName && lName && email) {
+            return {
+                LeftOperand: flName_flt,
+                LogicalOperator: "AND",
+                RightOperand: email_flt
+            }
+        } else if (fName && lName){
+            return flName_flt;
+        } else if (fName && email) {
+            return fe_flt;
+        } else if (lName && email) {
+            return le_flt;
+        } else if (fName) {
+            return fname_flt;
+        } else if (lname) {
+            return lname_flt;
+        } else if (email) {
+            return email_flt;
+        };
+        // var cmp_flt = {
+            //   LeftOperand: {
+                // LeftOperand: ,
+                // LogicalOperator: "OR",
+                // RightOperand: {
+            //       Property: "LAST_NAME",
+            //       SimpleOperator: "equals",
+            //       Value: lastname
+            //     }
+            //   },
+            //   LogicalOperator: "AND",
+            //   RightOperand: {
+            //     Property: "EMAIL",
+            //     SimpleOperator: "equals",
+            //     Value: email
+            //   }
+            // };
+
+    }
 </script>
