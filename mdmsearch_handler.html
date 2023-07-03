@@ -16,20 +16,21 @@
                      "EMAIL"
                     ];
     var op = "equals"
-    var cmp_flt = {
-        Property: "FIRST_NAME",
-        SimpleOperator: op,
-        Value: firstname
-    };
     // var cmp_flt = {
-    //   LeftOperand: {
-    //     LeftOperand: {
-    //       Property: "FIRST_NAME",
-    //       SimpleOperator: "equals",
-    //       Value: firstname
-    //     },
-    //     LogicalOperator: "OR",
-    //     RightOperand: {
+    //     Property: "FIRST_NAME",
+    //     SimpleOperator: op,
+    //     Value: firstname
+    // };
+
+    var cmp_flt = {
+      LeftOperand: {
+        LeftOperand: {
+          Property: "FIRST_NAME",
+          SimpleOperator: "equals",
+          Value: firstname
+        },
+        LogicalOperator: "OR",
+        RightOperand: {
     //       Property: "LAST_NAME",
     //       SimpleOperator: "equals",
     //       Value: lastname
@@ -37,11 +38,11 @@
     //   },
     //   LogicalOperator: "AND",
     //   RightOperand: {
-    //     Property: "EMAIL",
-    //     SimpleOperator: "equals",
-    //     Value: email
-    //   }
-    // };
+        Property: "EMAIL",
+        SimpleOperator: "equals",
+        Value: email
+      }
+    };
 
 //    var resp = prox.retrieve("DataExtensionObject[" + crmDECustKey + "]",
 //                             crmDECols,
