@@ -15,10 +15,10 @@
                      "MEDICAL_LICENSE_NUMBER",
                      "EMAIL"
                     ];
-
+    var op = "contains"
     var cmp_flt = {
         Property: "FIRST_NAME",
-        SimpleOperator: "equals",
+        SimpleOperator: op,
         Value: firstname
     };
     // var cmp_flt = {
@@ -48,9 +48,7 @@
 //                             cmp_flt);
     var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
+      operator: op,
       status: 200,
       result: resp
     }));
