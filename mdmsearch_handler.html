@@ -20,17 +20,17 @@
       LeftOperand: {
         LeftOperand: {
           Property: "FIRST_NAME",
-          SimpleOperator: "like",
+          SimpleOperator: "equals",
           Value: firstname
         },
         LogicalOperator: "OR",
         RightOperand: {
           Property: "LAST_NAME",
-          SimpleOperator: "like",
+          SimpleOperator: "equals",
           Value: lastname
         }
       },
-      LogicalOperator: "AND",
+      LogicalOperator: "OR",
       RightOperand: {
         Property: "EMAIL",
         SimpleOperator: "equals",
