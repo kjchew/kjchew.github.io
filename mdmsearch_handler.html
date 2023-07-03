@@ -64,12 +64,13 @@
         if (!fname && !lName && !email) {
             return fname_flt;
         }
-        // if (fName && lName && email) {
-        //     return {
-        //         LeftOperand: flName_flt,
-        //         LogicalOperator: "AND",
-        //         RightOperand: email_flt
-        //     }
+        else if (fName && lName && email) {
+            return {
+                LeftOperand: flName_flt,
+                LogicalOperator: "AND",
+                RightOperand: email_flt
+            }
+        }
         // } else if (fName && lName){
         //     return flName_flt;
         // } else if (fName && email) {
