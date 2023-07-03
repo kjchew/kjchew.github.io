@@ -11,7 +11,7 @@
     async function extractProfile(){
         console.log('fname: ' + this.firstname + ' ' + this.lastname + ' ' + this.email);
         try {
-            let resp = await fetch('https://cloud.info.msdconnect.hk/poc_mdm_validation?'
+            let resp = await fetch('https://cloud.info.msdconnect.hk/poc_mdm_search_handler?'
             + 'firstname='+ this.firstname
             + '&lastname=' + this.lastname
             + '&email=' + this.email);
