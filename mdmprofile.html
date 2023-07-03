@@ -15,8 +15,8 @@
             + 'firstname='+ this.firstname
             + '&lastname=' + this.lastname
             + '&email=' + this.email);
-            let msg = resp.json();
-            console.log('msg: ' + msg);
+            let msg = await resp.json();
+            console.log('msg: ' + JSON.stringify(msg));
             return msg;
         }catch (error) {
             console.log('error: ' + error);
