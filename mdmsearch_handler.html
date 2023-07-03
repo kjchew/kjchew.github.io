@@ -17,27 +17,6 @@
                     ];
     var op = "equals"
     var cmp_flt = constructFilter(firstname, lastname, email);
-    // var cmp_flt = {
-    //   LeftOperand: {
-        // LeftOperand: {
-        //   Property: "FIRST_NAME",
-        //   SimpleOperator: "equals",
-        //   Value: firstname
-        // },
-        // LogicalOperator: "OR",
-        // RightOperand: {
-    //       Property: "LAST_NAME",
-    //       SimpleOperator: "equals",
-    //       Value: lastname
-    //     }
-    //   },
-    //   LogicalOperator: "AND",
-    //   RightOperand: {
-    //     Property: "EMAIL",
-    //     SimpleOperator: "equals",
-    //     Value: email
-    //   }
-    // };
 
 //    var resp = prox.retrieve("DataExtensionObject[" + crmDECustKey + "]",
 //                             crmDECols,
@@ -50,7 +29,6 @@
     }));
 
     function constructFilter(fName, lName, email) {
-        var cmp_flt = {};
         let fname_flt = {
             Property: "FIRST_NAME",
             SimpleOperator: "equals",
@@ -100,6 +78,8 @@
             return lname_flt;
         } else if (email) {
             return email_flt;
+        } else {
+            return {};
         };
         // var cmp_flt = {
             //   LeftOperand: {
