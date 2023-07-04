@@ -23,10 +23,10 @@
 //                             cmp_flt);
     var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      change: "a9",
+      change: "a10",
       filter: cmp_flt,
       status: 200,
-      result: resp
+      resp
     }));
 
     function constructFilter(fName, lName, email) {
@@ -90,24 +90,5 @@
         } else {
             return fname_flt;
         };
-
-        // var cmp_flt = {
-            //   LeftOperand: {
-                // LeftOperand: ,
-                // LogicalOperator: "OR",
-                // RightOperand: {
-            //       Property: "LAST_NAME",
-            //       SimpleOperator: "equals",
-            //       Value: lastname
-            //     }
-            //   },
-            //   LogicalOperator: "AND",
-            //   RightOperand: {
-            //     Property: "EMAIL",
-            //     SimpleOperator: "equals",
-            //     Value: email
-            //   }
-            // };
-
     }
 </script>
