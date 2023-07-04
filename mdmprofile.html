@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js" defer></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
@@ -17,56 +18,75 @@
             + '&email=' + this.email);
             let msg = await resp.json();
             console.log('msg: ' + JSON.stringify(msg));
-            return msg;
+            return msg['payload'];
         }catch (error) {
             console.log('error: ' + error);
         }
     }
   </script>
-  <img data-assetid="280916" src="https://image.info.msdconnect.hk/lib/fe9a13737665057b75/m/1/search_yello.png" alt="" width="1200" style="display: block; padding: 0px; text-align: center; height: auto; width: 100%; border: 0px;">
-  <h1>MDM Profile Search a15</h1>
-  <div
-     x-data="{
-      firstname:'',
-      lastname:'',
-      email:'',
-      message:'',
-      result: extractProfile
-     }"
-  >
-    <input
-           minlength="2"
-           id="firstname"
-           type="text"
-           x-model="firstname"
-           placeholder="Enter first name"
-           >
+    <img data-assetid="280916" src="https://image.info.msdconnect.hk/lib/fe9a13737665057b75/m/1/search_yello.png" alt="" width="1200" style="display: block; padding: 0px; text-align: center; height: auto; width: 100%; border: 0px;">
+    <header>
+        <h2>MDM Profile Search</h2>
+    </header>
+    <div
+    x-data="{
+     firstname:'',
+     lastname:'',
+     email:''
+    }"
+   >
+    <section>
+       <input
+              minlength="2"
+              id="firstname"
+              type="text"
+              x-model="firstname"
+              placeholder="Enter first name"
+              >
 
-    <input
-           minlength="2"
-           id="lastname"
-           type="text"
-           x-model="lastname"
-           placeholder="Enter last name"
-           >
+       <input
+              minlength="2"
+              id="lastname"
+              type="text"
+              x-model="lastname"
+              placeholder="Enter last name"
+              >
 
-    <input
-           pattern="^\S+@\S+\.\S+$"
-           id="email"
-           type="email"
-           x-model="email"
-           placeholder="Enter email address"
-           >
-    <hr>
-    <br>
-    <div class="notice">
-        <ul>
-            <template x-for="profile in result['payload']">
-                <li x-text="profile"></li>
+       <input
+              pattern="^\S+@\S+\.\S+$"
+              id="email"
+              type="email"
+              x-model="email"
+              placeholder="Enter email address"
+              >
+
+    </section>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                  <th>MDM ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Territories</th>
+                  <th>Medical Lic No</th>
+                </tr>
+            </thead>
+            <template x-data="{profiles: extractProfile}" x-for="profile in profiles" :key="profile.mdmid">
+            <tbody>
+                <tr>
+                    <td x-text="profile['mdmid']"></td>
+                    <td x-text="profile['FIRST_NAME']"></td>
+                    <td x-text="profile['LAST_NAME']"></td>
+                    <td x-text="profile['EMAIL']"></td>
+                    <td x-text="profile['TERRITORIES']"></td>
+                    <td x-text="profile['MEDICAL_LICENSE_NUMBER']"></td>
+                </tr>
+            </tbody>
             </template>
-        </ul>
+        </table>
     </div>
   </div>
-
 </body>
 </html>
