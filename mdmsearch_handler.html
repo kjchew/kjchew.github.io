@@ -23,10 +23,10 @@
 //                             cmp_flt);
     var resp = crmDE.Rows.Retrieve(cmp_flt);
     Write(Stringify({
-      change: "a10",
+      change: "a11",
       filter: cmp_flt,
       status: 200,
-      resp
+      payload: resp
     }));
 
     function constructFilter(fName, lName, email) {
