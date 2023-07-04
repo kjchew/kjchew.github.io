@@ -17,20 +17,20 @@
             + '&email=' + this.email);
             let msg = await resp.json();
             console.log('msg: ' + JSON.stringify(msg));
-            return JSON.stringify(msg);
+            return msg;
         }catch (error) {
             console.log('error: ' + error);
         }
     }
   </script>
   <img data-assetid="280916" src="https://image.info.msdconnect.hk/lib/fe9a13737665057b75/m/1/search_yello.png" alt="" width="1200" style="display: block; padding: 0px; text-align: center; height: auto; width: 100%; border: 0px;">
-  <h1>MDM Profile Search a13</h1>
+  <h1>MDM Profile Search a15</h1>
   <div
      x-data="{
       firstname:'',
       lastname:'',
       email:'',
-      message:''.
+      message:'',
       result: extractProfile
      }"
   >
@@ -59,12 +59,12 @@
            >
     <hr>
     <br>
-    <div class="notice" x-text="result">
-        <!-- <ul>
-            <template x-for="profile in payloads">
+    <div class="notice">
+        <ul>
+            <template x-for="profile in result['payload']">
                 <li x-text="profile"></li>
             </template>
-        </ul> -->
+        </ul>
     </div>
   </div>
 
